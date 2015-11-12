@@ -1,23 +1,3 @@
-/*
-// USAGE:
-
-//Create new Ellipse object:
-var circle = new Ellipse(null, 0, 0, 300, 300);
-
-//Rename shape layer
-circle.setName('myLayer');
-
-//Scale shape layer by 250%
-circle.setScale(2.5);
-
-//Change shape's color to red
-var red = new SolidColor();
-  red.rgb.hexValue = "FF0000";
-  
-  circle.setColor(red);
-
-//*/
-
 var Ellipse = function(color, x, y, width, height){
   //Draws ellipse
   
