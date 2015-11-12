@@ -1,7 +1,7 @@
 # Shape Classes
-Classes for drawing various shapes using JSX
+Classes for drawing various shapes using JSX.
 
-## Ellipse
+## Ellipse (Draft)
 
 Create new Ellipse object:
 ```
