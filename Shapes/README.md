@@ -5,7 +5,7 @@ Classes for drawing various shapes using JSX.
 
 Create new Ellipse object:
 ```
-var circle = new Ellipse(null, 0, 0, 300, 300);
+var circle = new Ellipse(color, x, y, width, height);
 ```
 
 Rename shape layer
@@ -31,4 +31,4 @@ Set shape as active layer
 circle.setActive();
 ```
 
-Also, you can always access layer object through `circle.layer` variable.
+Also, you can always access layer object through `circle.layer` property.
