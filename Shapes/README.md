@@ -21,9 +21,9 @@ circle.setScale(2.5);
 Change shape's color to red
 ```
 var red = new SolidColor();
-  red.rgb.hexValue = "FF0000";
+    red.rgb.hexValue = "FF0000";
   
-  circle.setColor(red);
+circle.setColor(red);
 ```
 
 Set shape as active layer
