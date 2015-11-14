@@ -8,16 +8,16 @@ Include `Layer.js` to your main JSX file using
 #include Layer.js
 ```
 ## Shapes
-1. [Ellipse](#Ellipse)
-2. [Rectangle](#Rectangle)
+1. [Ellipse](#ellipse)
+2. [Rectangle](#rectangle)
 
-### Ellipse
+#### Ellipse
 Create new Ellipse object:
 ```javascript
 var circle = new Ellipse(x, y, width, height)
 ```
 
-### Rectangle
+#### Rectangle
 Create new Rectangle object:
 ```javascript
 var rect = new Rectangle(x, y, width, height)
