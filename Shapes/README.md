@@ -8,6 +8,14 @@ Create new Ellipse object:
 var circle = new Ellipse(color, x, y, width, height);
 ```
 
+You can set up layer's attributes using `attr` function
+```
+var circle = new Ellipse(50, 50, 100, 100).attr({
+  name: "My Circle",
+  color: "D2876D"
+});
+```
+
 Rename shape layer
 ```
 circle.setName('myLayer');
