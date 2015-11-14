@@ -48,5 +48,5 @@ var circle = new Ellipse();
 circle
   .setName('Circle')
   .translate(200, 200)
-  .setScale(1.5);
+  .scale(1.5);
 ```
