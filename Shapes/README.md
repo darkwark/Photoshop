@@ -20,7 +20,7 @@ var circle = new Ellipse().attr({
 
 Rename shape layer
 ```
-circle.setName('myLayer');
+circle.rename('myLayer');
 ```
 
 Scale shape layer by 250%
