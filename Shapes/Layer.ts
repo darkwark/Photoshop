@@ -4,13 +4,11 @@ class Layer{
   }
 
 
-
   rename(name){
     this.name = name;
 
     return this;
   }
-
 
 
   attr(attrs){
@@ -30,7 +28,6 @@ class Layer{
   }
 
 
-
   toggleVisible(){
 
     if(this.layer.visible){
@@ -44,14 +41,12 @@ class Layer{
   }
 
 
-
   setActive(){
     //Make layer active
     app.activeDocument.activeLayer = this.layer;
 
     return this;
   }
-
 
 
   translate(xShift, yShift){
@@ -62,13 +57,11 @@ class Layer{
   }
 
 
-
   scale(factor){
     scale(factor, this.layer);
 
     return this;
   }
-
 
 
   setColor(color){
@@ -80,6 +73,23 @@ class Layer{
     }
 
     fillLayer(color, this.layer);
+
+    return this;
+  }
+
+
+  addToGroup(groupName) {
+    var targetGroup;
+
+    try{
+      //Check if there's group called groupName
+      targetGroup = app.activeDocument.layerSets.getByName(groupName);
+    }catch(e){
+      //If groupName doesn't exist, then create it
+      targetGroup = app.activeDocument.layerSets.add();
+      targetGroup.name = groupName;
+    }
+    this.layer.move(targetGroup, ElementPlacement.INSIDE);
 
     return this;
   }
@@ -102,8 +112,7 @@ class Ellipse extends Layer{
     if(x !== 0) x = x || (app.activeDocument.width/2 - width/2);
     if(y !== 0) y = y || (app.activeDocument.height/2 - height/2);
 
-
-      drawEllipse(x, y, width, height, color);
+    drawEllipse(x, y, width, height, color);
 
     //Save link to layer object
     this.layer = app.activeDocument.activeLayer;
@@ -126,12 +135,11 @@ class Rectangle extends Layer{
     if(x !== 0) x = x || (app.activeDocument.width/2 - width/2);
     if(y !== 0) y = y || (app.activeDocument.height/2 - height/2);
 
-      if(!corner){
-        drawRectangle(x, y, width, height, color);
-      }else{
-        drawRoundRect(x, y, width, height, corner, color);
-      }
-      
+    if(!corner){
+      drawRectangle(x, y, width, height, color);
+    }else{
+      drawRoundRect(x, y, width, height, corner, color);
+    }
 
     //Save link to layer object
     this.layer = app.activeDocument.activeLayer;

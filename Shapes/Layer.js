@@ -54,6 +54,20 @@ var Layer = (function () {
         fillLayer(color, this.layer);
         return this;
     };
+    Layer.prototype.addToGroup = function (groupName) {
+        var targetGroup;
+        try {
+            //Check if there's group called groupName
+            targetGroup = app.activeDocument.layerSets.getByName(groupName);
+        }
+        catch (e) {
+            //If groupName doesn't exist, then create it
+            targetGroup = app.activeDocument.layerSets.add();
+            targetGroup.name = groupName;
+        }
+        this.layer.move(targetGroup, ElementPlacement.INSIDE);
+        return this;
+    };
     return Layer;
 })();
 //Ellipse
