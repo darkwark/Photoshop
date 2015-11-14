@@ -64,6 +64,11 @@ newWidth = rect.getWidth(),
 newHeight = rect.getHeight()
 ```
 
+Set position of the layer
+```javascript
+circle.position(x, y)
+```
+
 ### Access ArtLayer object
 You can always access layer object using `layer` property and do regular stuff with ArtLayer
 ```javascript
