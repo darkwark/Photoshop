@@ -8,7 +8,7 @@ var Layer = (function () {
         // ¯\_(ツ)_/¯
     }
     Layer.prototype.rename = function (name) {
-        this.name = name;
+        this.layer.name = name;
         return this;
     };
     Layer.prototype.attr = function (attrs) {
@@ -61,16 +61,22 @@ var Layer = (function () {
     };
     Layer.prototype.addToGroup = function (groupName) {
         var targetGroup;
-        try {
-            //Check if there's group called groupName
-            targetGroup = app.activeDocument.layerSets.getByName(groupName);
+        if (typeof groupName === 'string') {
+            try {
+                //Check if there's group called groupName
+                targetGroup = app.activeDocument.layerSets.getByName(groupName);
+            }
+            catch (e) {
+                //If groupName doesn't exist, then create it
+                targetGroup = app.activeDocument.layerSets.add();
+                targetGroup.name = groupName;
+            }
         }
-        catch (e) {
-            //If groupName doesn't exist, then create it
-            targetGroup = app.activeDocument.layerSets.add();
-            targetGroup.name = groupName;
+        else {
+            targetGroup = groupName;
         }
         this.layer.move(targetGroup, ElementPlacement.INSIDE);
+        this.group = targetGroup;
         return this;
     };
     Layer.prototype.getWidth = function () {
@@ -82,6 +88,7 @@ var Layer = (function () {
     Layer.prototype.position = function (targetX, targetY) {
         var currentX = Number(this.layer.bounds[0]), currentY = Number(this.layer.bounds[1]);
         this.layer.translate(targetX - currentX, targetY - currentY);
+        return this;
     };
     return Layer;
 })();

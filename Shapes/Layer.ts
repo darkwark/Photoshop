@@ -5,7 +5,7 @@ class Layer{
 
 
   rename(name){
-    this.name = name;
+    this.layer.name = name;
 
     return this;
   }
@@ -84,15 +84,21 @@ class Layer{
   addToGroup(groupName) {
     var targetGroup;
 
-    try{
-      //Check if there's group called groupName
-      targetGroup = app.activeDocument.layerSets.getByName(groupName);
-    }catch(e){
-      //If groupName doesn't exist, then create it
-      targetGroup = app.activeDocument.layerSets.add();
-      targetGroup.name = groupName;
+    if(typeof groupName === 'string'){
+      try{
+        //Check if there's group called groupName
+        targetGroup = app.activeDocument.layerSets.getByName(groupName);
+      }catch(e){
+        //If groupName doesn't exist, then create it
+        targetGroup = app.activeDocument.layerSets.add();
+        targetGroup.name = groupName;
+      } 
+    }else{
+      targetGroup = groupName;
     }
+    
     this.layer.move(targetGroup, ElementPlacement.INSIDE);
+    this.group = targetGroup;
 
     return this;
   }
