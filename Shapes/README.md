@@ -1,5 +1,5 @@
 # Shape Classes
-By default Adobe Photoshop doesn't provide default functions for drawing shapes like Ellipses or Rectangles.
+By default Adobe Photoshop doesn't provide functions for drawing shapes like Ellipses or Rectangles.
 These classes provide such functionality.
 
 ## Usage
