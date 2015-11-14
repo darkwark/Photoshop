@@ -31,4 +31,14 @@ Set shape as active layer
 circle.setActive();
 ```
 
-Also, you can always access layer object through `circle.layer` property.
+You can always access layer object using `circle.layer` property.
+
+You can also chain methods like this:
+```
+var circle = new Ellipse();
+
+circle
+  .setName('Circle')
+  .translate(200, 200)
+  .setScale(1.5);
+```
