@@ -33,8 +33,8 @@ Specify individual radius for each of the corners:
 var rect = new Rectangle(x, y, width, height, [topLeft, topRight, bottomRight, bottomLeft])
 ```
 
-## Layer
-These methods are available across all shape types. 
+## Methods
+These methods are available across all layer shape types
 
 You can set up layer's attributes using `attr` function
 ```javascript
@@ -94,7 +94,7 @@ Set position of the layer
 circle.position(x, y)
 ```
 
-### Access ArtLayer object
+#### Access ArtLayer object
 You can always access layer object using `layer` property and do regular stuff with ArtLayer
 ```javascript
 var layerRef = new Rectangle(50, 50, 100, 100).layer;
