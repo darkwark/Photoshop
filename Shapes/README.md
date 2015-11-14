@@ -10,8 +10,6 @@ Include `Layer.js` to your main JSX file using
 ## Layer
 These methods are available across all shape types. 
 
-You can always access layer object using `circle.layer` property and do regular stuff with ArtLayer. There are also some shortcuts for commonly used actions:
-
 You can set up layer's attributes using `attr` function
 ```
 var circle = new Ellipse(50, 50, 100, 100).attr({
@@ -46,9 +44,15 @@ You can also chain methods like this:
 var circle = new Ellipse();
 
 circle
-  .setName('Circle')
+  .rename('Circle')
   .translate(200, 200)
   .scale(1.5);
+```
+
+You can always access layer object using `layer` property and do regular stuff with ArtLayer
+```
+var layerRef = new Rectangle(50, 50, 100, 100).layer;
+layerRef.rasterize(RasterizeType.ENTIRELAYER);
 ```
 
 ## Ellipse
