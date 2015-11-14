@@ -1,12 +1,12 @@
-var Ellipse = function(color, x, y, width, height){
+var Ellipse = function(x, y, width, height){
   //Draws ellipse
   
   //Default values
-  var color = color || app.foregroundColor,
+  var color = app.foregroundColor,
     width = width || 100,
     height = height || 100,
-    x = x || app.activeDocument.width/2 - width/2,
-    y = y || app.activeDocument.height/2 - height/2;
+    x = x || (app.activeDocument.width/2 - width/2),
+    y = y || (app.activeDocument.height/2 - height/2);
       
   
   // Save current foreground color:
@@ -38,6 +38,30 @@ var Ellipse = function(color, x, y, width, height){
 
   return this;
 };
+
+Ellipse.prototype.attr = function(attrs){
+  //List of attributes: x, y, width, height, color, name, visible
+
+  //TODO: x, y, width, height, color, name, visible
+
+  if(attrs.name){
+    this.layer.name = attrs.name;
+  }
+
+  if(attrs.visible){
+    this.layer.visible = attrs.visible;
+  }
+
+  if(attrs.color){
+
+    var color = new SolidColor();
+    color.rgb.hexValue = attrs.color;
+
+    this.setColor(color);
+    
+  }
+
+}
 
 Ellipse.prototype.setActive = function () {
   //Make layer active
