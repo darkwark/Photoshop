@@ -35,21 +35,29 @@ var Ellipse = function(color, x, y, width, height){
   
   //Save link to layer object
   this.layer = app.activeDocument.activeLayer;
+
+  return this;
 };
 
 Ellipse.prototype.setActive = function () {
   //Make layer active
   app.activeDocument.activeLayer = this.layer;
+
+  return this;
 }
 
 Ellipse.prototype.translate = function (xShift, yShift) {
   //Move layer by xShift, yShift
   this.layer.translate(xShift, yShift);
+
+  return this;
 }
 
 Ellipse.prototype.setName = function (name) {
   //Rename layer
   this.layer.name = name;
+
+  return this;
 }
 
 Ellipse.prototype.setScale = function (scale) {
@@ -86,6 +94,8 @@ Ellipse.prototype.setScale = function (scale) {
   executeAction(charIDToTypeID('Trnf'), desc4, DialogModes.NO);
   
   app.activeDocument.activeLayer = tmpLayer;
+
+  return this;
 }
 
 Ellipse.prototype.setColor = function (color) {
@@ -102,4 +112,6 @@ Ellipse.prototype.setColor = function (color) {
   
   app.activeDocument.activeLayer = tmpLayer;
   app.foregroundColor = tmpColor;
+
+  return this;
 }
