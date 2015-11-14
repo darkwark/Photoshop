@@ -41,6 +41,10 @@ var Layer = (function () {
         this.layer.translate(xShift, yShift);
         return this;
     };
+    Layer.prototype.scale = function (factor) {
+        scale(factor, this.layer);
+        return this;
+    };
     Layer.prototype.setColor = function (color) {
         if (!(color instanceof SolidColor)) {
             var hexValue = color;
@@ -65,7 +69,7 @@ var Ellipse = (function (_super) {
     }
     return Ellipse;
 })(Layer);
-//Ellipse
+//Rectangle
 var Rectangle = (function (_super) {
     __extends(Rectangle, _super);
     function Rectangle(x, y, width, height) {
@@ -151,4 +155,22 @@ function fillLayer(color, layer) {
     executeAction(charIDToTypeID('Fl  '), desc6, DialogModes.NO);
     app.activeDocument.activeLayer = tmpLayer;
     app.foregroundColor = tmpColor;
+}
+function scale(factor, layer) {
+    var tmpLayer = app.activeDocument.activeLayer;
+    app.activeDocument.activeLayer = layer;
+    factor *= 100;
+    // =======================================================
+    var desc4 = new ActionDescriptor(), desc5 = new ActionDescriptor(), ref2 = new ActionReference();
+    ref2.putEnumerated(charIDToTypeID('Lyr '), charIDToTypeID('Ordn'), charIDToTypeID('Trgt'));
+    desc4.putReference(charIDToTypeID('null'), ref2);
+    desc4.putEnumerated(charIDToTypeID('FTcs'), charIDToTypeID('QCSt'), charIDToTypeID('Qcsa'));
+    desc5.putUnitDouble(charIDToTypeID('Hrzn'), charIDToTypeID('#Pxl'), 0);
+    desc5.putUnitDouble(charIDToTypeID('Vrtc'), charIDToTypeID('#Pxl'), 0);
+    desc4.putObject(charIDToTypeID('Ofst'), charIDToTypeID('Ofst'), desc5);
+    desc4.putUnitDouble(charIDToTypeID('Wdth'), charIDToTypeID('#Prc'), factor);
+    desc4.putUnitDouble(charIDToTypeID('Hght'), charIDToTypeID('#Prc'), factor);
+    desc4.putEnumerated(charIDToTypeID('Intr'), charIDToTypeID('Intp'), stringIDToTypeID('bicubicAutomatic'));
+    executeAction(charIDToTypeID('Trnf'), desc4, DialogModes.NO);
+    app.activeDocument.activeLayer = tmpLayer;
 }
