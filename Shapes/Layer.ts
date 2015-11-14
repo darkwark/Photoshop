@@ -110,6 +110,8 @@ class Layer{
         currentY = Number(this.layer.bounds[1]);
 
     this.layer.translate(targetX - currentX, targetY - currentY);
+
+    return this;
   }
 }
 
