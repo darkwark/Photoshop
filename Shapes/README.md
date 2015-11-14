@@ -1,5 +1,6 @@
 # Shape Classes
-Classes for drawing various shapes using JSX.
+By default Adobe Photoshop doesn't provide default functions for drawing shapes like Ellipses or Rectangles.
+These classes provide such functionality.
 
 ## Usage
 Include `Layer.js` to your main JSX file using
