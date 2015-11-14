@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Layer = (function () {
     function Layer() {
-        //
+        // ¯\_(ツ)_/¯
     }
     Layer.prototype.rename = function (name) {
         this.name = name;

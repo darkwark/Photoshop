@@ -1,6 +1,6 @@
 class Layer{
   constructor(){
-    //
+    // ¯\_(ツ)_/¯
   }
 
 
