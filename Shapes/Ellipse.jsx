@@ -128,7 +128,8 @@ Ellipse.prototype.setColor = function (color) {
   var tmpLayer = app.activeDocument.activeLayer;
   app.activeDocument.activeLayer = this.layer;
 
-  if(typeof color !== "object"){
+  if(!(color instanceof SolidColor)){
+
       var hexValue = color;
       color = new SolidColor();
       color.rgb.hexValue = hexValue;    
