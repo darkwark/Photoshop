@@ -7,8 +7,8 @@ var Ellipse = function(x, y, width, height){
     height = height || 100,
     x = x || (app.activeDocument.width/2 - width/2),
     y = y || (app.activeDocument.height/2 - height/2);
-      
-  
+
+
   // Save current foreground color:
   var tmpColor = app.foregroundColor; 
   app.foregroundColor = color;
@@ -53,14 +53,13 @@ Ellipse.prototype.attr = function(attrs){
   }
 
   if(attrs.color){
-
     var color = new SolidColor();
     color.rgb.hexValue = attrs.color;
 
     this.setColor(color);
-    
   }
 
+  return this;
 }
 
 Ellipse.prototype.setActive = function () {
