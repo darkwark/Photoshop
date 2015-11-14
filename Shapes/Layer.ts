@@ -105,6 +105,12 @@ class Layer{
     return getSize(this.layer).height;
   }
 
+  position(targetX, targetY) {
+    var currentX = Number(this.layer.bounds[0]),
+        currentY = Number(this.layer.bounds[1]);
+
+    this.layer.translate(targetX - currentX, targetY - currentY);
+  }
 }
 
 
@@ -239,6 +245,8 @@ function drawRectangle(x, y, width, height, color){
 function drawRoundRect(x, y, width, height, corners, color) {
   //Draw rounded rectangle (Photshop CC)
   //corners can be array of corners [Top Left, Top Right, Bottom Right, Bottom Left]
+
+  //TODO: AM-beautify
   
   if(!(corners instanceof Array)){
     var corner = corners;
@@ -275,10 +283,10 @@ function drawRoundRect(x, y, width, height, corners, color) {
         desc2726.putInteger( idunitValueQuadVersion, 1 );
         var idTop = charIDToTypeID( "Top " );
         var idPxl = charIDToTypeID( "#Pxl" );
-        desc2726.putUnitDouble( idTop, idPxl, x );
+        desc2726.putUnitDouble( idTop, idPxl, y );
         var idLeft = charIDToTypeID( "Left" );
         var idPxl = charIDToTypeID( "#Pxl" );
-        desc2726.putUnitDouble( idLeft, idPxl, y );
+        desc2726.putUnitDouble( idLeft, idPxl, x );
         var idBtom = charIDToTypeID( "Btom" );
         var idPxl = charIDToTypeID( "#Pxl" );
         desc2726.putUnitDouble( idBtom, idPxl, y+height );
@@ -407,10 +415,10 @@ function scale(factor, layer){
 
 function getSize(layer){
   //Width/Height of layer
-  var topX = layer.bounds[0];
-  var topY = layer.bounds[1];
-  var bottomX = layer.bounds[2];
-  var bottomY = layer.bounds[3];
+  var topX = Number(layer.bounds[0]);
+  var topY = Number(layer.bounds[1]);
+  var bottomX = Number(layer.bounds[2]);
+  var bottomY = Number(layer.bounds[3]);
   
   var layerWidth = parseInt(bottomX - topX);
   var layerHeight = parseInt(bottomY - topY);
