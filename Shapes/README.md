@@ -72,3 +72,13 @@ var rect = new Rectangle(x, y, width, height).attr({
   name: "Rect"
 })
 ```
+
+You can also specify corner radius of the Rectangle:
+```
+var rect = new Rectangle(x, y, width, height, radius)
+```
+
+Or specify each corner's radius:
+```
+var rect = new Rectangle(x, y, width, height, [topLeft, topRight, bottomRight, bottomLeft])
+```

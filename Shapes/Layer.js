@@ -72,10 +72,15 @@ var Ellipse = (function (_super) {
 //Rectangle
 var Rectangle = (function (_super) {
     __extends(Rectangle, _super);
-    function Rectangle(x, y, width, height) {
+    function Rectangle(x, y, width, height, corner) {
         //Default values
         var color = app.foregroundColor, width = width || 100, height = height || 100, x = x || (app.activeDocument.width / 2 - width / 2), y = y || (app.activeDocument.height / 2 - height / 2);
-        drawRectangle(x, y, width, height, color);
+        if (!corner) {
+            drawRectangle(x, y, width, height, color);
+        }
+        else {
+            drawRoundRect(x, y, width, height, corner, color);
+        }
         //Save link to layer object
         this.layer = app.activeDocument.activeLayer;
         return this;
@@ -143,6 +148,131 @@ function drawRectangle(x, y, width, height, color) {
     // =======================================================
     //Restore old foreground color:
     app.foregroundColor = tmpColor;
+}
+function drawRoundRect(x, y, width, height, corners, color) {
+    //Draw rounded rectangle (Photshop CC)
+    //corners can be array of corners [Top Left, Top Right, Bottom Right, Bottom Left]
+    if (!(corners instanceof Array)) {
+        var corner = corners;
+        corners = [corner, corner, corner, corner];
+    }
+    // =======================================================
+    var idMk = charIDToTypeID("Mk  ");
+    var desc2722 = new ActionDescriptor();
+    var idnull = charIDToTypeID("null");
+    var ref281 = new ActionReference();
+    var idcontentLayer = stringIDToTypeID("contentLayer");
+    ref281.putClass(idcontentLayer);
+    desc2722.putReference(idnull, ref281);
+    var idUsng = charIDToTypeID("Usng");
+    var desc2723 = new ActionDescriptor();
+    var idType = charIDToTypeID("Type");
+    var desc2724 = new ActionDescriptor();
+    var idClr = charIDToTypeID("Clr ");
+    var desc2725 = new ActionDescriptor();
+    var idRd = charIDToTypeID("Rd  ");
+    desc2725.putDouble(idRd, color.rgb.red);
+    var idGrn = charIDToTypeID("Grn ");
+    desc2725.putDouble(idGrn, color.rgb.green);
+    var idBl = charIDToTypeID("Bl  ");
+    desc2725.putDouble(idBl, color.rgb.blue);
+    var idRGBC = charIDToTypeID("RGBC");
+    desc2724.putObject(idClr, idRGBC, desc2725);
+    var idsolidColorLayer = stringIDToTypeID("solidColorLayer");
+    desc2723.putObject(idType, idsolidColorLayer, desc2724);
+    var idShp = charIDToTypeID("Shp ");
+    var desc2726 = new ActionDescriptor();
+    var idunitValueQuadVersion = stringIDToTypeID("unitValueQuadVersion");
+    desc2726.putInteger(idunitValueQuadVersion, 1);
+    var idTop = charIDToTypeID("Top ");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idTop, idPxl, x);
+    var idLeft = charIDToTypeID("Left");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idLeft, idPxl, y);
+    var idBtom = charIDToTypeID("Btom");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idBtom, idPxl, y + height);
+    var idRght = charIDToTypeID("Rght");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idRght, idPxl, x + width);
+    var idtopRight = stringIDToTypeID("topRight");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idtopRight, idPxl, corners[1]);
+    var idtopLeft = stringIDToTypeID("topLeft");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idtopLeft, idPxl, corners[0]);
+    var idbottomLeft = stringIDToTypeID("bottomLeft");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idbottomLeft, idPxl, corners[3]);
+    var idbottomRight = stringIDToTypeID("bottomRight");
+    var idPxl = charIDToTypeID("#Pxl");
+    desc2726.putUnitDouble(idbottomRight, idPxl, corners[2]);
+    var idRctn = charIDToTypeID("Rctn");
+    desc2723.putObject(idShp, idRctn, desc2726);
+    var idstrokeStyle = stringIDToTypeID("strokeStyle");
+    var desc2727 = new ActionDescriptor();
+    var idstrokeStyleVersion = stringIDToTypeID("strokeStyleVersion");
+    desc2727.putInteger(idstrokeStyleVersion, 2);
+    var idstrokeEnabled = stringIDToTypeID("strokeEnabled");
+    desc2727.putBoolean(idstrokeEnabled, false);
+    var idfillEnabled = stringIDToTypeID("fillEnabled");
+    desc2727.putBoolean(idfillEnabled, true);
+    var idstrokeStyleLineWidth = stringIDToTypeID("strokeStyleLineWidth");
+    var idPnt = charIDToTypeID("#Pnt");
+    desc2727.putUnitDouble(idstrokeStyleLineWidth, idPnt, 1.000000);
+    var idstrokeStyleLineDashOffset = stringIDToTypeID("strokeStyleLineDashOffset");
+    var idPnt = charIDToTypeID("#Pnt");
+    desc2727.putUnitDouble(idstrokeStyleLineDashOffset, idPnt, 0.000000);
+    var idstrokeStyleMiterLimit = stringIDToTypeID("strokeStyleMiterLimit");
+    desc2727.putDouble(idstrokeStyleMiterLimit, 100.000000);
+    var idstrokeStyleLineCapType = stringIDToTypeID("strokeStyleLineCapType");
+    var idstrokeStyleLineCapType = stringIDToTypeID("strokeStyleLineCapType");
+    var idstrokeStyleButtCap = stringIDToTypeID("strokeStyleButtCap");
+    desc2727.putEnumerated(idstrokeStyleLineCapType, idstrokeStyleLineCapType, idstrokeStyleButtCap);
+    var idstrokeStyleLineJoinType = stringIDToTypeID("strokeStyleLineJoinType");
+    var idstrokeStyleLineJoinType = stringIDToTypeID("strokeStyleLineJoinType");
+    var idstrokeStyleMiterJoin = stringIDToTypeID("strokeStyleMiterJoin");
+    desc2727.putEnumerated(idstrokeStyleLineJoinType, idstrokeStyleLineJoinType, idstrokeStyleMiterJoin);
+    var idstrokeStyleLineAlignment = stringIDToTypeID("strokeStyleLineAlignment");
+    var idstrokeStyleLineAlignment = stringIDToTypeID("strokeStyleLineAlignment");
+    var idstrokeStyleAlignInside = stringIDToTypeID("strokeStyleAlignInside");
+    desc2727.putEnumerated(idstrokeStyleLineAlignment, idstrokeStyleLineAlignment, idstrokeStyleAlignInside);
+    var idstrokeStyleScaleLock = stringIDToTypeID("strokeStyleScaleLock");
+    desc2727.putBoolean(idstrokeStyleScaleLock, false);
+    var idstrokeStyleStrokeAdjust = stringIDToTypeID("strokeStyleStrokeAdjust");
+    desc2727.putBoolean(idstrokeStyleStrokeAdjust, false);
+    var idstrokeStyleLineDashSet = stringIDToTypeID("strokeStyleLineDashSet");
+    var list32 = new ActionList();
+    desc2727.putList(idstrokeStyleLineDashSet, list32);
+    var idstrokeStyleBlendMode = stringIDToTypeID("strokeStyleBlendMode");
+    var idBlnM = charIDToTypeID("BlnM");
+    var idNrml = charIDToTypeID("Nrml");
+    desc2727.putEnumerated(idstrokeStyleBlendMode, idBlnM, idNrml);
+    var idstrokeStyleOpacity = stringIDToTypeID("strokeStyleOpacity");
+    var idPrc = charIDToTypeID("#Prc");
+    desc2727.putUnitDouble(idstrokeStyleOpacity, idPrc, 100.000000);
+    var idstrokeStyleContent = stringIDToTypeID("strokeStyleContent");
+    var desc2728 = new ActionDescriptor();
+    var idClr = charIDToTypeID("Clr ");
+    var desc2729 = new ActionDescriptor();
+    var idRd = charIDToTypeID("Rd  ");
+    desc2729.putDouble(idRd, 0.000000);
+    var idGrn = charIDToTypeID("Grn ");
+    desc2729.putDouble(idGrn, 0.000000);
+    var idBl = charIDToTypeID("Bl  ");
+    desc2729.putDouble(idBl, 0.000000);
+    var idRGBC = charIDToTypeID("RGBC");
+    desc2728.putObject(idClr, idRGBC, desc2729);
+    var idsolidColorLayer = stringIDToTypeID("solidColorLayer");
+    desc2727.putObject(idstrokeStyleContent, idsolidColorLayer, desc2728);
+    var idstrokeStyleResolution = stringIDToTypeID("strokeStyleResolution");
+    desc2727.putDouble(idstrokeStyleResolution, 72.000000);
+    var idstrokeStyle = stringIDToTypeID("strokeStyle");
+    desc2723.putObject(idstrokeStyle, idstrokeStyle, desc2727);
+    var idcontentLayer = stringIDToTypeID("contentLayer");
+    desc2722.putObject(idUsng, idcontentLayer, desc2723);
+    executeAction(idMk, desc2722, DialogModes.NO);
 }
 function fillLayer(color, layer) {
     var tmpLayer = app.activeDocument.activeLayer;
