@@ -31,12 +31,13 @@ Set shape as active layer
 circle.setActive();
 ```
 
-You can always access layer object using `circle.layer` property.
+You can always access layer object using `circle.layer` property and do regular stuff with ArtLayer
 
 You can also chain methods like this:
 ```
 var circle = new Ellipse();
 
+//Rename layer to 'Circle' shift it by (200, 200) and scale up to 150%
 circle
   .setName('Circle')
   .translate(200, 200)
