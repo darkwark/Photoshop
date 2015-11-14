@@ -36,7 +36,17 @@ var rect = new Rectangle(x, y, width, height, [topLeft, topRight, bottomRight, b
 ## Methods
 These methods are available across all layer shape types
 
-You can set up layer's attributes using `attr` function
+You can also chain methods:
+```javascript
+var circle = new Ellipse();
+
+circle
+  .rename('Circle')
+  .translate(200, 200)
+  .scale(1.5);
+```
+
+Setup layer's attributes using `attr`
 ```javascript
 var circle = new Ellipse().attr({
   name: "My Circle",
@@ -54,7 +64,7 @@ Scale shape layer by 250%
 circle.scale(2.5)
 ```
 
-Change shape's color. You can either enter HEX code or use `SolidColor` object
+Change shape's color. You can either enter HEX-code (`FF0000`) or use `SolidColor` object
 ```javascript
 circle.setColor('FF0000')
 circle.setColor(app.foregroundColor)
@@ -65,28 +75,21 @@ Set shape as active layer
 circle.setActive();
 ```
 
-You can also chain methods like this:
-```javascript
-var circle = new Ellipse();
-
-circle
-  .rename('Circle')
-  .translate(200, 200)
-  .scale(1.5);
-```
-
-Add shape to the group. If group doesn't exist it will be created.
+Add shape to the group. If group doesn't exist it will be created. 
 ```javascript
 var rect = new Rectangle().addToGroup('Shapes'),
     circle = new Ellipse().addToGroup('Shapes')
 ```
+You can also access LayerSet object by accessing `group` property
+```
+var rect = new Rectangle().addToGroup("Shapes"),
+    circle = new Ellipse().addToGroup(rect.group)
+```
 
-Get layer Width and Height
+Get layer's width and height
 ```javascript
-var rect = new Rectangle().scale(1.5),
-
-newWidth = rect.getWidth(),
-newHeight = rect.getHeight()
+rect.getWidth(),
+rect.getHeight()
 ```
 
 Set position of the layer
