@@ -49,10 +49,7 @@ Ellipse.prototype.attr = function(attrs){
   }
 
   if(attrs.color){
-    var color = new SolidColor();
-    color.rgb.hexValue = attrs.color;
-
-    this.setColor(color);
+    this.setColor(attrs.color);
   }
 
   return this;
@@ -130,6 +127,12 @@ Ellipse.prototype.scale = function (scale) {
 Ellipse.prototype.setColor = function (color) {
   var tmpLayer = app.activeDocument.activeLayer;
   app.activeDocument.activeLayer = this.layer;
+
+  if(typeof color !== "object"){
+      var hexValue = color;
+      color = new SolidColor();
+      color.rgb.hexValue = hexValue;    
+  }
   
   var tmpColor = app.foregroundColor;
   app.foregroundColor = color;
