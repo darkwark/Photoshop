@@ -23,7 +23,7 @@ circle.setName('myLayer');
 
 Scale shape layer by 250%
 ```
-circle.setScale(2.5);
+circle.scale(2.5);
 ```
 
 Change shape's color to red

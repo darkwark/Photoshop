@@ -40,16 +40,12 @@ var Ellipse = function(x, y, width, height){
 };
 
 Ellipse.prototype.attr = function(attrs){
-  //List of attributes: x, y, width, height, color, name, visible
+  //List of attributes: x, y, width, height, color, name, 
 
-  //TODO: x, y, width, height, color, name, visible
+  //TODO: x, y, width, height, color, name, 
 
   if(attrs.name){
     this.layer.name = attrs.name;
-  }
-
-  if(attrs.visible){
-    this.layer.visible = attrs.visible;
   }
 
   if(attrs.color){
@@ -57,6 +53,16 @@ Ellipse.prototype.attr = function(attrs){
     color.rgb.hexValue = attrs.color;
 
     this.setColor(color);
+  }
+
+  return this;
+}
+
+Ellipse.prototype.toggleVisible = function(){
+  if(this.layer.visible){
+    this.layer.visible = false
+  }else{
+    this.layer.visible = true;
   }
 
   return this;
@@ -83,7 +89,7 @@ Ellipse.prototype.setName = function (name) {
   return this;
 }
 
-Ellipse.prototype.setScale = function (scale) {
+Ellipse.prototype.scale = function (scale) {
   //Scale layer, scale = 1.5 will scale layer to 150%
   
   var tmpLayer = app.activeDocument.activeLayer;
