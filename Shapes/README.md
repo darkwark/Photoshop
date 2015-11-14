@@ -5,7 +5,7 @@ Classes for drawing various shapes using JSX.
 
 Create new Ellipse object:
 ```
-var circle = new Ellipse(color, x, y, width, height);
+var circle = new Ellipse(x, y, width, height);
 ```
 
 You can set up layer's attributes using `attr` function
