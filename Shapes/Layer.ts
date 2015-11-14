@@ -97,6 +97,13 @@ class Layer{
     return this;
   }
 
+  getWidth() {
+    return getSize(this.layer).width;
+  }
+
+  getHeight() {
+    return getSize(this.layer).height;
+  }
 
 }
 
@@ -154,8 +161,9 @@ class Rectangle extends Layer{
 
 
 
-
-//Photoshop Implementation
+// =======================================================
+//  Photoshop Implementation
+// =======================================================
 function drawEllipse(x, y, width, height, color){
   // Save current foreground color:
   var tmpColor = app.foregroundColor;
@@ -395,4 +403,17 @@ function scale(factor, layer){
   executeAction(charIDToTypeID('Trnf'), desc4, DialogModes.NO);
   
   app.activeDocument.activeLayer = tmpLayer;
+}
+
+function getSize(layer){
+  //Width/Height of layer
+  var topX = layer.bounds[0];
+  var topY = layer.bounds[1];
+  var bottomX = layer.bounds[2];
+  var bottomY = layer.bounds[3];
+  
+  var layerWidth = parseInt(bottomX - topX);
+  var layerHeight = parseInt(bottomY - topY);
+  
+  return {width:layerWidth, height: layerHeight };
 }

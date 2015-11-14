@@ -23,6 +23,7 @@ var Layer = (function () {
         return this;
     };
     Layer.prototype.toggleVisible = function () {
+        //Toggle visibility of the layer
         if (this.layer.visible) {
             this.layer.visible = false;
         }
@@ -42,11 +43,15 @@ var Layer = (function () {
         return this;
     };
     Layer.prototype.scale = function (factor) {
+        //Scale layer by factor
         scale(factor, this.layer);
         return this;
     };
     Layer.prototype.setColor = function (color) {
+        //Change color of the layer
         if (!(color instanceof SolidColor)) {
+            //If passed color is HEX value, 
+            //then create SolidColor using this value 
             var hexValue = color;
             color = new SolidColor();
             color.rgb.hexValue = hexValue;
@@ -67,6 +72,12 @@ var Layer = (function () {
         }
         this.layer.move(targetGroup, ElementPlacement.INSIDE);
         return this;
+    };
+    Layer.prototype.getWidth = function () {
+        return getSize(this.layer).width;
+    };
+    Layer.prototype.getHeight = function () {
+        return getSize(this.layer).height;
     };
     return Layer;
 })();
@@ -113,7 +124,9 @@ var Rectangle = (function (_super) {
     }
     return Rectangle;
 })(Layer);
-//Photoshop Implementation
+// =======================================================
+//  Photoshop Implementation
+// =======================================================
 function drawEllipse(x, y, width, height, color) {
     // Save current foreground color:
     var tmpColor = app.foregroundColor;
@@ -329,4 +342,14 @@ function scale(factor, layer) {
     desc4.putEnumerated(charIDToTypeID('Intr'), charIDToTypeID('Intp'), stringIDToTypeID('bicubicAutomatic'));
     executeAction(charIDToTypeID('Trnf'), desc4, DialogModes.NO);
     app.activeDocument.activeLayer = tmpLayer;
+}
+function getSize(layer) {
+    //Width/Height of layer
+    var topX = layer.bounds[0];
+    var topY = layer.bounds[1];
+    var bottomX = layer.bounds[2];
+    var bottomY = layer.bounds[3];
+    var layerWidth = parseInt(bottomX - topX);
+    var layerHeight = parseInt(bottomY - topY);
+    return { width: layerWidth, height: layerHeight };
 }

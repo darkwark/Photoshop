@@ -56,6 +56,14 @@ var rect = new Rectangle().addToGroup('Shapes'),
     circle = new Ellipse().addToGroup('Shapes')
 ```
 
+Get layer Width and Height
+```
+var rect = new Rectangle(0, 0, 120, 120, 50).scale(1.5),
+
+newWidth = rect.getWidth(),
+newHeight = rect.getHeight()
+```
+
 ### Access ArtLayer object
 You can always access layer object using `layer` property and do regular stuff with ArtLayer
 ```
