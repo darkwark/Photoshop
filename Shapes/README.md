@@ -31,7 +31,7 @@ circle.scale(2.5)
 
 Change shape's color. You can either enter HEX code or use `SolidColor` object
 ```javascript
-circle.setColor("FF0000")
+circle.setColor('FF0000')
 circle.setColor(app.foregroundColor)
 ```
 
@@ -58,7 +58,7 @@ var rect = new Rectangle().addToGroup('Shapes'),
 
 Get layer Width and Height
 ```javascript
-var rect = new Rectangle(0, 0, 120, 120, 50).scale(1.5),
+var rect = new Rectangle().scale(1.5),
 
 newWidth = rect.getWidth(),
 newHeight = rect.getHeight()
