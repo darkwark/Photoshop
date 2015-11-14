@@ -1,12 +1,16 @@
 # Shape Classes
 Classes for drawing various shapes using JSX.
 
-## Ellipse (Draft)
+## Usage
+Include `Layer.js` to your main JSX file using
+```
+#include Layer.js
+```
 
-Create new Ellipse object:
-```
-var circle = new Ellipse(x, y, width, height);
-```
+## Layer
+These methods are available across all shape types. 
+
+You can always access layer object using `circle.layer` property and do regular stuff with ArtLayer. There are also some shortcuts for commonly used actions:
 
 You can set up layer's attributes using `attr` function
 ```
@@ -26,20 +30,16 @@ Scale shape layer by 250%
 circle.scale(2.5);
 ```
 
-Change shape's color to red
+Change shape's color. You can either enter HEX code or use `SolidColor` object
 ```
-var red = new SolidColor();
-    red.rgb.hexValue = "FF0000";
-  
-circle.setColor(red);
+circle.setColor("FF0000");
+circle.setColor(app.foregroundColor);
 ```
 
 Set shape as active layer
 ```
 circle.setActive();
 ```
-
-You can always access layer object using `circle.layer` property and do regular stuff with ArtLayer
 
 You can also chain methods like this:
 ```
@@ -49,4 +49,22 @@ circle
   .setName('Circle')
   .translate(200, 200)
   .scale(1.5);
+```
+
+## Ellipse
+Create new Ellipse object:
+```
+var circle = new Ellipse(x, y, width, height).attr({
+  color: "DDFF00",
+  name: "Circle"
+})
+```
+
+## Rectanble
+Create new Rectangle object:
+```
+var rect = new Rectangle(x, y, width, height).attr({
+  color: "b58dae",
+  name: "Rect"
+})
 ```
