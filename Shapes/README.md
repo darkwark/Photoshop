@@ -7,6 +7,31 @@ Include `Layer.js` to your main JSX file using
 ```javascript
 #include Layer.js
 ```
+## Shapes
+1. [Ellipse](#Ellipse)
+2. [Rectangle](#Rectangle)
+
+### Ellipse
+Create new Ellipse object:
+```javascript
+var circle = new Ellipse(x, y, width, height)
+```
+
+### Rectangle
+Create new Rectangle object:
+```javascript
+var rect = new Rectangle(x, y, width, height)
+```
+
+Optionally, you can specify corner radius of the Rectangle:
+```javascript
+var rect = new Rectangle(x, y, width, height, radius)
+```
+
+Specify individual radius for each of the corners:
+```javascript
+var rect = new Rectangle(x, y, width, height, [topLeft, topRight, bottomRight, bottomLeft])
+```
 
 ## Layer
 These methods are available across all shape types. 
@@ -76,24 +101,3 @@ var layerRef = new Rectangle(50, 50, 100, 100).layer;
 layerRef.rasterize(RasterizeType.ENTIRELAYER);
 ```
 
-## Ellipse
-Create new Ellipse object:
-```javascript
-var circle = new Ellipse(x, y, width, height)
-```
-
-## Rectangle
-Create new Rectangle object:
-```javascript
-var rect = new Rectangle(x, y, width, height)
-```
-
-You can also specify corner radius of the Rectangle:
-```javascript
-var rect = new Rectangle(x, y, width, height, radius)
-```
-
-Or specify each corner's radius:
-```javascript
-var rect = new Rectangle(x, y, width, height, [topLeft, topRight, bottomRight, bottomLeft])
-```
