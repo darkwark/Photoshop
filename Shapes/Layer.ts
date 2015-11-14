@@ -95,11 +95,12 @@ class Layer{
 class Ellipse extends Layer{
   constructor(x, y, width, height){
     //Default values
-    var color = app.foregroundColor,
-      width = width || 100,
-      height = height || 100,
-      x = x || (app.activeDocument.width/2 - width/2),
-      y = y || (app.activeDocument.height/2 - height/2);
+    var color = app.foregroundColor;
+    width = width || 100;
+    height = height || 100;
+
+    if(x !== 0) x = x || (app.activeDocument.width/2 - width/2);
+    if(y !== 0) y = y || (app.activeDocument.height/2 - height/2);
 
 
       drawEllipse(x, y, width, height, color);
@@ -118,11 +119,12 @@ class Ellipse extends Layer{
 class Rectangle extends Layer{
   constructor(x, y, width, height, corner){
     //Default values
-    var color = app.foregroundColor,
-      width = width || 100,
-      height = height || 100,
-      x = x || (app.activeDocument.width/2 - width/2),
-      y = y || (app.activeDocument.height/2 - height/2);
+    var color = app.foregroundColor;
+    width = width || 100;
+    height = height || 100;
+
+    if(x !== 0) x = x || (app.activeDocument.width/2 - width/2);
+    if(y !== 0) y = y || (app.activeDocument.height/2 - height/2);
 
       if(!corner){
         drawRectangle(x, y, width, height, color);

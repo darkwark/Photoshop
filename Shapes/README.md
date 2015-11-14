@@ -12,7 +12,7 @@ These methods are available across all shape types.
 
 You can set up layer's attributes using `attr` function
 ```
-var circle = new Ellipse(50, 50, 100, 100).attr({
+var circle = new Ellipse().attr({
   name: "My Circle",
   color: "D2876D"
 });
@@ -64,7 +64,7 @@ var circle = new Ellipse(x, y, width, height).attr({
 })
 ```
 
-## Rectanble
+## Rectangle
 Create new Rectangle object:
 ```
 var rect = new Rectangle(x, y, width, height).attr({
