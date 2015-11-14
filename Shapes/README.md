@@ -50,10 +50,10 @@ circle
   .scale(1.5);
 ```
 
-Add shape to the group
+Add shape to the group. If group doesn't exist it will be created.
 ```
 var rect = new Rectangle().addToGroup('Shapes'),
-  circle = new Ellipse().addToGroup('Shapes');
+    circle = new Ellipse().addToGroup('Shapes');
 ```
 
 You can always access layer object using `layer` property and do regular stuff with ArtLayer
