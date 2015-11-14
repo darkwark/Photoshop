@@ -16,23 +16,23 @@ You can set up layer's attributes using `attr` function
 var circle = new Ellipse().attr({
   name: "My Circle",
   color: "D2876D"
-});
+})
 ```
 
 Rename shape layer
 ```
-circle.rename('myLayer');
+circle.rename('myLayer')
 ```
 
 Scale shape layer by 250%
 ```
-circle.scale(2.5);
+circle.scale(2.5)
 ```
 
 Change shape's color. You can either enter HEX code or use `SolidColor` object
 ```
-circle.setColor("FF0000");
-circle.setColor(app.foregroundColor);
+circle.setColor("FF0000")
+circle.setColor(app.foregroundColor)
 ```
 
 Set shape as active layer
@@ -53,7 +53,7 @@ circle
 Add shape to the group. If group doesn't exist it will be created.
 ```
 var rect = new Rectangle().addToGroup('Shapes'),
-    circle = new Ellipse().addToGroup('Shapes');
+    circle = new Ellipse().addToGroup('Shapes')
 ```
 
 ### Access ArtLayer object
@@ -66,19 +66,13 @@ layerRef.rasterize(RasterizeType.ENTIRELAYER);
 ## Ellipse
 Create new Ellipse object:
 ```
-var circle = new Ellipse(x, y, width, height).attr({
-  color: "DDFF00",
-  name: "Circle"
-})
+var circle = new Ellipse(x, y, width, height)
 ```
 
 ## Rectangle
 Create new Rectangle object:
 ```
-var rect = new Rectangle(x, y, width, height).attr({
-  color: "b58dae",
-  name: "Rect"
-})
+var rect = new Rectangle(x, y, width, height)
 ```
 
 You can also specify corner radius of the Rectangle:

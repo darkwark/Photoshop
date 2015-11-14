@@ -29,7 +29,7 @@ class Layer{
 
 
   toggleVisible(){
-
+    //Toggle visibility of the layer
     if(this.layer.visible){
       this.layer.visible = false
     }else{
@@ -58,6 +58,7 @@ class Layer{
 
 
   scale(factor){
+    //Scale layer by factor
     scale(factor, this.layer);
 
     return this;
@@ -65,11 +66,13 @@ class Layer{
 
 
   setColor(color){
+    //Change color of the layer
     if(!(color instanceof SolidColor)){
-
-        var hexValue = color;
-        color = new SolidColor();
-        color.rgb.hexValue = hexValue;
+      //If passed color is HEX value, 
+      //then create SolidColor using this value 
+      var hexValue = color;
+      color = new SolidColor();
+      color.rgb.hexValue = hexValue;
     }
 
     fillLayer(color, this.layer);
