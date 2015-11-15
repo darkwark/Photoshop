@@ -36,7 +36,7 @@ var rect = new Rectangle(x, y, width, height, [topLeft, topRight, bottomRight, b
 ## Methods
 These methods are available across all layer shape types
 
-You can also chain methods:
+You can chain methods:
 ```javascript
 var circle = new Ellipse();
 
@@ -62,6 +62,11 @@ circle.rename('myLayer')
 Scale shape layer by 250%
 ```javascript
 circle.scale(2.5)
+```
+
+Shift layer by `xShift`, `yShift` values
+```javascript
+circle.translate(xShift, yShift);
 ```
 
 Change shape's color. You can either enter HEX-code (`FF0000`) or use `SolidColor` object
