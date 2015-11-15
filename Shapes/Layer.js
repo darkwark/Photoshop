@@ -15,8 +15,12 @@ var Layer = (function () {
         this.height = height || 100;
         if (x !== 0)
             this.x = x || Number(app.activeDocument.width / 2 - this.width / 2);
+        else
+            this.x = 0;
         if (y !== 0)
             this.y = y || Number(app.activeDocument.height / 2 - this.height / 2);
+        else
+            this.y = 0;
     }
     Layer.prototype.rename = function (name) {
         this.layer.name = name;
@@ -107,7 +111,7 @@ var Layer = (function () {
 var Ellipse = (function (_super) {
     __extends(Ellipse, _super);
     function Ellipse(x, y, width, height) {
-        _super.call(this, x, y, width, height);
+        _super.call(this, null, x, y, width, height);
         drawEllipse(this.x, this.y, this.width, this.height, this.color);
         //Save link to layer object
         this.layer = app.activeDocument.activeLayer;
@@ -119,7 +123,7 @@ var Ellipse = (function (_super) {
 var Rectangle = (function (_super) {
     __extends(Rectangle, _super);
     function Rectangle(x, y, width, height, corner) {
-        _super.call(this, x, y, width, height);
+        _super.call(this, null, x, y, width, height);
         if (!corner) {
             drawRectangle(this.x, this.y, this.width, this.height, this.color);
         }

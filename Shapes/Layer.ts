@@ -1,5 +1,5 @@
 class Layer{
-  constructor(layer?, x, y, width, height){
+  constructor(layer, x, y, width, height){
     // ¯\_(ツ)_/¯
     //Default values
     if(layer){
@@ -10,8 +10,16 @@ class Layer{
     this.width = width || 100;
     this.height = height || 100;
 
-    if(x !== 0) this.x = x || Number(app.activeDocument.width/2 - this.width/2);
-    if(y !== 0) this.y = y || Number(app.activeDocument.height/2 - this.height/2);
+    if(x !== 0) 
+      this.x = x || Number(app.activeDocument.width/2 - this.width/2);
+    else
+      this.x = 0;
+    
+    if(y !== 0)
+      this.y = y || Number(app.activeDocument.height/2 - this.height/2);
+    else
+      this.y = 0
+    
   }
 
   rename(name){
@@ -131,7 +139,7 @@ class Layer{
 class Ellipse extends Layer{
   constructor(x, y, width, height){
     
-    super(x, y, width, height);
+    super(null, x, y, width, height);
     drawEllipse(this.x, this.y, this.width, this.height, this.color);
 
     //Save link to layer object
@@ -147,8 +155,8 @@ class Ellipse extends Layer{
 class Rectangle extends Layer{
   constructor(x, y, width, height, corner){
     
-    super(x, y, width, height);
-
+    super(null, x, y, width, height);
+    
     if(!corner){
       drawRectangle(this.x, this.y, this.width, this.height, this.color);
     }else{
