@@ -1,15 +1,20 @@
 class Layer{
-  constructor(){
+  constructor(x, y, width, height){
     // ¯\_(ツ)_/¯
-  }
+    //Default values
+    this.color = app.foregroundColor;
+    this.width = width || 100;
+    this.height = height || 100;
 
+    if(x !== 0) this.x = x || Number(app.activeDocument.width/2 - this.width/2);
+    if(y !== 0) this.y = y || Number(app.activeDocument.height/2 - this.height/2);
+  }
 
   rename(name){
     this.layer.name = name;
 
     return this;
   }
-
 
   attr(attrs){
     //List of attributes: x, y, width, height, color, name,
@@ -27,7 +32,6 @@ class Layer{
     return this;
   }
 
-
   toggleVisible(){
     //Toggle visibility of the layer
     if(this.layer.visible){
@@ -40,14 +44,12 @@ class Layer{
 
   }
 
-
   setActive(){
     //Make layer active
     app.activeDocument.activeLayer = this.layer;
 
     return this;
   }
-
 
   translate(xShift, yShift){
     //Move layer by xShift, yShift
@@ -56,14 +58,12 @@ class Layer{
     return this;
   }
 
-
   scale(factor){
     //Scale layer by factor
     scale(factor, this.layer);
 
     return this;
   }
-
 
   setColor(color){
     //Change color of the layer
@@ -79,7 +79,6 @@ class Layer{
 
     return this;
   }
-
 
   addToGroup(groupName) {
     var targetGroup;
@@ -119,24 +118,17 @@ class Layer{
 
     return this;
   }
+
 }
-
-
 
 
 
 //Ellipse
 class Ellipse extends Layer{
   constructor(x, y, width, height){
-    //Default values
-    var color = app.foregroundColor;
-    width = width || 100;
-    height = height || 100;
-
-    if(x !== 0) x = x || (app.activeDocument.width/2 - width/2);
-    if(y !== 0) y = y || (app.activeDocument.height/2 - height/2);
-
-    drawEllipse(x, y, width, height, color);
+    
+    super(x, y, width, height);
+    drawEllipse(this.x, this.y, this.width, this.height, this.color);
 
     //Save link to layer object
     this.layer = app.activeDocument.activeLayer;
@@ -147,22 +139,16 @@ class Ellipse extends Layer{
 
 
 
-
 //Rectangle
 class Rectangle extends Layer{
   constructor(x, y, width, height, corner){
-    //Default values
-    var color = app.foregroundColor;
-    width = width || 100;
-    height = height || 100;
-
-    if(x !== 0) x = x || (app.activeDocument.width/2 - width/2);
-    if(y !== 0) y = y || (app.activeDocument.height/2 - height/2);
+    
+    super(x, y, width, height);
 
     if(!corner){
-      drawRectangle(x, y, width, height, color);
+      drawRectangle(this.x, this.y, this.width, this.height, this.color);
     }else{
-      drawRoundRect(x, y, width, height, corner, color);
+      drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
     }
 
     //Save link to layer object
@@ -171,7 +157,6 @@ class Rectangle extends Layer{
     return this;
   }
 }
-
 
 
 

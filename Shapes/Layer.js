@@ -4,8 +4,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Layer = (function () {
-    function Layer() {
+    function Layer(x, y, width, height) {
         // ¯\_(ツ)_/¯
+        //Default values
+        this.color = app.foregroundColor;
+        this.width = width || 100;
+        this.height = height || 100;
+        if (x !== 0)
+            this.x = x || Number(app.activeDocument.width / 2 - this.width / 2);
+        if (y !== 0)
+            this.y = y || Number(app.activeDocument.height / 2 - this.height / 2);
     }
     Layer.prototype.rename = function (name) {
         this.layer.name = name;
@@ -96,15 +104,8 @@ var Layer = (function () {
 var Ellipse = (function (_super) {
     __extends(Ellipse, _super);
     function Ellipse(x, y, width, height) {
-        //Default values
-        var color = app.foregroundColor;
-        width = width || 100;
-        height = height || 100;
-        if (x !== 0)
-            x = x || (app.activeDocument.width / 2 - width / 2);
-        if (y !== 0)
-            y = y || (app.activeDocument.height / 2 - height / 2);
-        drawEllipse(x, y, width, height, color);
+        _super.call(this, x, y, width, height);
+        drawEllipse(this.x, this.y, this.width, this.height, this.color);
         //Save link to layer object
         this.layer = app.activeDocument.activeLayer;
         return this;
@@ -115,19 +116,12 @@ var Ellipse = (function (_super) {
 var Rectangle = (function (_super) {
     __extends(Rectangle, _super);
     function Rectangle(x, y, width, height, corner) {
-        //Default values
-        var color = app.foregroundColor;
-        width = width || 100;
-        height = height || 100;
-        if (x !== 0)
-            x = x || (app.activeDocument.width / 2 - width / 2);
-        if (y !== 0)
-            y = y || (app.activeDocument.height / 2 - height / 2);
+        _super.call(this, x, y, width, height);
         if (!corner) {
-            drawRectangle(x, y, width, height, color);
+            drawRectangle(this.x, this.y, this.width, this.height, this.color);
         }
         else {
-            drawRoundRect(x, y, width, height, corner, color);
+            drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
         }
         //Save link to layer object
         this.layer = app.activeDocument.activeLayer;

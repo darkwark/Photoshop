@@ -80,7 +80,7 @@ Add shape to the group. If group doesn't exist it will be created.
 var rect = new Rectangle().addToGroup('Shapes'),
     circle = new Ellipse().addToGroup('Shapes')
 ```
-You can also access LayerSet object by accessing `group` property
+You can also access `LayerSet` object by accessing `group` property
 ```
 var rect = new Rectangle().addToGroup("Shapes"),
     circle = new Ellipse().addToGroup(rect.group)
@@ -98,7 +98,7 @@ circle.position(x, y)
 ```
 
 #### Access ArtLayer object
-You can always access layer object using `layer` property and do regular stuff with ArtLayer
+You can always access layer object using `layer` property and do regular stuff with `ArtLayer`
 ```javascript
 var layerRef = new Rectangle(50, 50, 100, 100).layer;
 layerRef.rasterize(RasterizeType.ENTIRELAYER);
