@@ -4,9 +4,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Layer = (function () {
-    function Layer(x, y, width, height) {
+    function Layer(layer, x, y, width, height) {
         // ¯\_(ツ)_/¯
         //Default values
+        if (layer) {
+            this.layer = layer;
+        }
         this.color = app.foregroundColor;
         this.width = width || 100;
         this.height = height || 100;

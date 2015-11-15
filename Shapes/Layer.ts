@@ -1,7 +1,11 @@
 class Layer{
-  constructor(x, y, width, height){
+  constructor(layer?, x, y, width, height){
     // ¯\_(ツ)_/¯
     //Default values
+    if(layer){
+      this.layer = layer;
+    }
+
     this.color = app.foregroundColor;
     this.width = width || 100;
     this.height = height || 100;
