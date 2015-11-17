@@ -59,7 +59,7 @@ var Layer = (function () {
     };
     Layer.prototype.scale = function (factor) {
         //Scale layer by factor
-        scale(factor, this.layer);
+        Photoshop.scale(factor, this.layer);
         return this;
     };
     Layer.prototype.setColor = function (color) {
@@ -71,7 +71,7 @@ var Layer = (function () {
             color = new SolidColor();
             color.rgb.hexValue = hexValue;
         }
-        fillLayer(color, this.layer);
+        Photoshop.fillLayer(color, this.layer);
         return this;
     };
     Layer.prototype.addToGroup = function (groupName) {
@@ -95,10 +95,10 @@ var Layer = (function () {
         return this;
     };
     Layer.prototype.getWidth = function () {
-        return getSize(this.layer).width;
+        return Photoshop.getSize(this.layer).width;
     };
     Layer.prototype.getHeight = function () {
-        return getSize(this.layer).height;
+        return Photoshop.getSize(this.layer).height;
     };
     Layer.prototype.position = function (targetX, targetY) {
         var currentX = Number(this.layer.bounds[0]), currentY = Number(this.layer.bounds[1]);
@@ -112,7 +112,7 @@ var Ellipse = (function (_super) {
     __extends(Ellipse, _super);
     function Ellipse(x, y, width, height) {
         _super.call(this, null, x, y, width, height);
-        drawEllipse(this.x, this.y, this.width, this.height, this.color);
+        Photoshop.drawEllipse(this.x, this.y, this.width, this.height, this.color);
         //Save link to layer object
         this.layer = app.activeDocument.activeLayer;
         return this;
@@ -125,10 +125,10 @@ var Rectangle = (function (_super) {
     function Rectangle(x, y, width, height, corner) {
         _super.call(this, null, x, y, width, height);
         if (!corner) {
-            drawRectangle(this.x, this.y, this.width, this.height, this.color);
+            Photoshop.drawRectangle(this.x, this.y, this.width, this.height, this.color);
         }
         else {
-            drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
+            Photoshop.drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
         }
         //Save link to layer object
         this.layer = app.activeDocument.activeLayer;
@@ -139,7 +139,9 @@ var Rectangle = (function (_super) {
 // =======================================================
 //  Photoshop Implementation
 // =======================================================
-function drawEllipse(x, y, width, height, color) {
+// Encapsulate all Photoshop related methods
+var Photoshop = {};
+Photoshop.drawEllipse = function (x, y, width, height, color) {
     // Save current foreground color:
     var tmpColor = app.foregroundColor;
     app.foregroundColor = color;
@@ -158,8 +160,8 @@ function drawEllipse(x, y, width, height, color) {
     // =======================================================
     //Restore old foreground color:
     app.foregroundColor = tmpColor;
-}
-function drawRectangle(x, y, width, height, color) {
+};
+Photoshop.drawRectangle = function (x, y, width, height, color) {
     //Draws Rectangle
     // Save current foreground color:
     var tmpColor = app.foregroundColor;
@@ -199,8 +201,8 @@ function drawRectangle(x, y, width, height, color) {
     // =======================================================
     //Restore old foreground color:
     app.foregroundColor = tmpColor;
-}
-function drawRoundRect(x, y, width, height, corners, color) {
+};
+Photoshop.drawRoundRect = function (x, y, width, height, corners, color) {
     //Draw rounded rectangle (Photshop CC)
     //corners can be array of corners [Top Left, Top Right, Bottom Right, Bottom Left]
     //TODO: AM-beautify
@@ -325,8 +327,8 @@ function drawRoundRect(x, y, width, height, corners, color) {
     var idcontentLayer = stringIDToTypeID("contentLayer");
     desc2722.putObject(idUsng, idcontentLayer, desc2723);
     executeAction(idMk, desc2722, DialogModes.NO);
-}
-function fillLayer(color, layer) {
+};
+Photoshop.fillLayer = function (color, layer) {
     var tmpLayer = app.activeDocument.activeLayer;
     app.activeDocument.activeLayer = layer;
     var tmpColor = app.foregroundColor;
@@ -337,8 +339,8 @@ function fillLayer(color, layer) {
     executeAction(charIDToTypeID('Fl  '), desc6, DialogModes.NO);
     app.activeDocument.activeLayer = tmpLayer;
     app.foregroundColor = tmpColor;
-}
-function scale(factor, layer) {
+};
+Photoshop.scale = function (factor, layer) {
     var tmpLayer = app.activeDocument.activeLayer;
     app.activeDocument.activeLayer = layer;
     factor *= 100;
@@ -355,8 +357,8 @@ function scale(factor, layer) {
     desc4.putEnumerated(charIDToTypeID('Intr'), charIDToTypeID('Intp'), stringIDToTypeID('bicubicAutomatic'));
     executeAction(charIDToTypeID('Trnf'), desc4, DialogModes.NO);
     app.activeDocument.activeLayer = tmpLayer;
-}
-function getSize(layer) {
+};
+Photoshop.getSize = function (layer) {
     //Width/Height of layer
     var topX = Number(layer.bounds[0]);
     var topY = Number(layer.bounds[1]);
@@ -365,4 +367,4 @@ function getSize(layer) {
     var layerWidth = parseInt(bottomX - topX);
     var layerHeight = parseInt(bottomY - topY);
     return { width: layerWidth, height: layerHeight };
-}
+};

@@ -72,7 +72,7 @@ class Layer{
 
   scale(factor){
     //Scale layer by factor
-    scale(factor, this.layer);
+    Photoshop.scale(factor, this.layer);
 
     return this;
   }
@@ -87,7 +87,7 @@ class Layer{
       color.rgb.hexValue = hexValue;
     }
 
-    fillLayer(color, this.layer);
+    Photoshop.fillLayer(color, this.layer);
 
     return this;
   }
@@ -115,11 +115,11 @@ class Layer{
   }
 
   getWidth() {
-    return getSize(this.layer).width;
+    return Photoshop.getSize(this.layer).width;
   }
 
   getHeight() {
-    return getSize(this.layer).height;
+    return Photoshop.getSize(this.layer).height;
   }
 
   position(targetX, targetY) {
@@ -140,7 +140,7 @@ class Ellipse extends Layer{
   constructor(x, y, width, height){
     
     super(null, x, y, width, height);
-    drawEllipse(this.x, this.y, this.width, this.height, this.color);
+    Photoshop.drawEllipse(this.x, this.y, this.width, this.height, this.color);
 
     //Save link to layer object
     this.layer = app.activeDocument.activeLayer;
@@ -158,9 +158,9 @@ class Rectangle extends Layer{
     super(null, x, y, width, height);
     
     if(!corner){
-      drawRectangle(this.x, this.y, this.width, this.height, this.color);
+      Photoshop.drawRectangle(this.x, this.y, this.width, this.height, this.color);
     }else{
-      drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
+      Photoshop.drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
     }
 
     //Save link to layer object
@@ -175,7 +175,11 @@ class Rectangle extends Layer{
 // =======================================================
 //  Photoshop Implementation
 // =======================================================
-function drawEllipse(x, y, width, height, color){
+
+// Encapsulate all Photoshop related methods
+var Photoshop = {}
+
+Photoshop.drawEllipse = function(x, y, width, height, color){
   // Save current foreground color:
   var tmpColor = app.foregroundColor;
   app.foregroundColor = color;
@@ -201,7 +205,7 @@ function drawEllipse(x, y, width, height, color){
   app.foregroundColor = tmpColor;
 }
 
-function drawRectangle(x, y, width, height, color){
+Photoshop.drawRectangle = function(x, y, width, height, color){
   //Draws Rectangle
   
   // Save current foreground color:
@@ -247,7 +251,7 @@ function drawRectangle(x, y, width, height, color){
   app.foregroundColor = tmpColor;
 }
 
-function drawRoundRect(x, y, width, height, corners, color) {
+Photoshop.drawRoundRect = function(x, y, width, height, corners, color) {
   //Draw rounded rectangle (Photshop CC)
   //corners can be array of corners [Top Left, Top Right, Bottom Right, Bottom Left]
 
@@ -378,7 +382,7 @@ function drawRoundRect(x, y, width, height, corners, color) {
 }
 
 
-function fillLayer(color, layer){
+Photoshop.fillLayer = function(color, layer){
   var tmpLayer = app.activeDocument.activeLayer;
   app.activeDocument.activeLayer = layer;
 
@@ -394,7 +398,7 @@ function fillLayer(color, layer){
   app.foregroundColor = tmpColor;
 }
 
-function scale(factor, layer){
+Photoshop.scale = function(factor, layer){
   var tmpLayer = app.activeDocument.activeLayer;
   app.activeDocument.activeLayer = layer;
   
@@ -418,7 +422,7 @@ function scale(factor, layer){
   app.activeDocument.activeLayer = tmpLayer;
 }
 
-function getSize(layer){
+Photoshop.getSize = function(layer){
   //Width/Height of layer
   var topX = Number(layer.bounds[0]);
   var topY = Number(layer.bounds[1]);
