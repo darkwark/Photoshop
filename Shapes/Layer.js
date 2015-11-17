@@ -125,7 +125,7 @@ var Rectangle = (function (_super) {
     function Rectangle(x, y, width, height, corner) {
         _super.call(this, null, x, y, width, height);
         if (!corner) {
-            Photoshop.drawRectangle(this.x, this.y, this.width, this.height, this.color);
+            Photoshop.drawRoundRect(this.x, this.y, this.width, this.height, 0, this.color);
         }
         else {
             Photoshop.drawRoundRect(this.x, this.y, this.width, this.height, corner, this.color);
@@ -143,9 +143,7 @@ var Rectangle = (function (_super) {
 var Photoshop = {};
 //AM-code beautify
 function cTID(s) { return app.charIDToTypeID(s); }
-;
 function sTID(s) { return app.stringIDToTypeID(s); }
-;
 Photoshop.drawEllipse = function (x, y, width, height, color) {
     // Save current foreground color:
     var tmpColor = app.foregroundColor;
@@ -166,34 +164,9 @@ Photoshop.drawEllipse = function (x, y, width, height, color) {
     //Restore old foreground color:
     app.foregroundColor = tmpColor;
 };
-Photoshop.drawRectangle = function (x, y, width, height, color) {
-    //Draws Rectangle
-    // Save current foreground color:
-    var tmpColor = app.foregroundColor;
-    app.foregroundColor = color;
-    // =======================================================
-    var desc9 = new ActionDescriptor();
-    var ref7 = new ActionReference();
-    ref7.putClass(sTID('contentLayer'));
-    desc9.putReference(cTID('null'), ref7);
-    var desc10 = new ActionDescriptor();
-    desc10.putClass(cTID('Type'), sTID('solidColorLayer'));
-    var desc11 = new ActionDescriptor();
-    desc11.putUnitDouble(cTID('Top '), cTID('#Pxl'), y);
-    desc11.putUnitDouble(cTID('Left'), cTID('#Pxl'), x);
-    desc11.putUnitDouble(cTID('Btom'), cTID('#Pxl'), y + height);
-    desc11.putUnitDouble(cTID('Rght'), cTID('#Pxl'), x + width);
-    desc10.putObject(cTID('Shp '), cTID('Rctn'), desc11);
-    desc9.putObject(cTID('Usng'), sTID('contentLayer'), desc10);
-    executeAction(cTID('Mk  '), desc9, DialogModes.NO);
-    // =======================================================
-    //Restore old foreground color:
-    app.foregroundColor = tmpColor;
-};
 Photoshop.drawRoundRect = function (x, y, width, height, corners, color) {
     //Draw rounded rectangle (Photshop CC)
     //corners can be array of corners [Top Left, Top Right, Bottom Right, Bottom Left]
-    //TODO: AM-beautify
     if (!(corners instanceof Array)) {
         var corner = corners;
         corners = [corner, corner, corner, corner];
@@ -222,31 +195,6 @@ Photoshop.drawRoundRect = function (x, y, width, height, corners, color) {
     desc2726.putUnitDouble(sTID('bottomLeft'), cTID('#Pxl'), corners[3]);
     desc2726.putUnitDouble(sTID('bottomRight'), cTID('#Pxl'), corners[2]);
     desc2723.putObject(cTID('Shp '), cTID('Rctn'), desc2726);
-    var desc2727 = new ActionDescriptor();
-    desc2727.putInteger(sTID('strokeStyleVersion'), 2);
-    desc2727.putBoolean(sTID('strokeEnabled'), false);
-    desc2727.putBoolean(sTID('fillEnabled'), true);
-    desc2727.putUnitDouble(sTID('strokeStyleLineWidth'), cTID('#Pnt'), 1.000000);
-    desc2727.putUnitDouble(sTID('strokeStyleLineDashOffset'), cTID('#Pnt'), 0.000000);
-    desc2727.putDouble(sTID('strokeStyleMiterLimit'), 100.000000);
-    desc2727.putEnumerated(sTID('strokeStyleLineCapType'), sTID('strokeStyleLineCapType'), sTID('strokeStyleButtCap'));
-    desc2727.putEnumerated(sTID('strokeStyleLineJoinType'), sTID('strokeStyleLineJoinType'), sTID('strokeStyleMiterJoin'));
-    desc2727.putEnumerated(sTID('strokeStyleLineAlignment'), sTID('strokeStyleLineAlignment'), sTID('strokeStyleAlignInside'));
-    desc2727.putBoolean(sTID('strokeStyleScaleLock'), false);
-    desc2727.putBoolean(sTID('strokeStyleStrokeAdjust'), false);
-    var list32 = new ActionList();
-    desc2727.putList(sTID('strokeStyleLineDashSet'), list32);
-    desc2727.putEnumerated(sTID('strokeStyleBlendMode'), cTID('BlnM'), cTID('Nrml'));
-    desc2727.putUnitDouble(sTID('strokeStyleOpacity'), cTID('#Prc'), 100.000000);
-    var desc2728 = new ActionDescriptor();
-    var desc2729 = new ActionDescriptor();
-    desc2729.putDouble(cTID('Rd  '), 0.000000);
-    desc2729.putDouble(cTID('Grn '), 0.000000);
-    desc2729.putDouble(cTID('Bl  '), 0.000000);
-    desc2728.putObject(cTID('Clr '), cTID('RGBC'), desc2729);
-    desc2727.putObject(sTID('strokeStyleContent'), sTID('solidColorLayer'), desc2728);
-    desc2727.putDouble(sTID('strokeStyleResolution'), 72.000000);
-    desc2723.putObject(sTID('strokeStyle'), sTID('strokeStyle'), desc2727);
     desc2722.putObject(cTID('Usng'), sTID('contentLayer'), desc2723);
     executeAction(cTID('Mk  '), desc2722, DialogModes.NO);
 };
