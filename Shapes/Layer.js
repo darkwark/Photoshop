@@ -29,14 +29,20 @@ var Layer = (function () {
     Layer.prototype.attr = function (attrs) {
         //List of attributes: x, y, width, height, color, name,
         //TODO: x, y, width, height
-        if ("name" in attrs) {
+        if ('name' in attrs) {
             this.layer.name = attrs.name;
         }
-        if ("color" in attrs) {
+        if ('color' in attrs) {
             this.setColor(attrs.color);
         }
-        if ("x" in attrs && "y" in attrs) {
+        if (('x' in attrs) && ('y' in attrs)) {
             this.position(attrs.x, attrs.y);
+        }
+        else if ('x' in attrs) {
+            this.position(attrs.x, this.y);
+        }
+        else if ('y' in attrs) {
+            this.position(this.x, attrs.y);
         }
         return this;
     };
